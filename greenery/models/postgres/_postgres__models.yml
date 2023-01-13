@@ -1,0 +1,96 @@
+version: 2
+
+models:
+  - name: stg_postgres__addresses
+    description: Customer billing and shipping addresses
+    columns:
+      - name: address_id
+        description: Primary key of the addresses table
+        tests:
+          - unique
+          - not_null
+      - name: address
+      - name: zipcode
+      - name: state
+      - name: country
+
+  - name: stg_postgres__events
+    description: ""
+    columns:
+      - name: event_id
+        description: Primary key of the events table
+        tests:
+          - unique
+          - not_null
+      - name: session_id
+      - name: user_id
+        description: Foreign key to the users table
+      - name: page_url
+      - name: created_at
+      - name: event_type
+      - name: order_id
+        description: Foreign key to the orders table
+      - name: product_id
+        description: Foreign key to the products table
+
+  - name: stg_postgres__order_items
+    description: ""
+    columns:
+      - name: order_id
+        description: Primary key of the events table
+        tests:
+          - unique
+          - not_null
+      - name: product_id
+        description: Foreign key to the products table
+      - name: quantity
+
+  - name: stg_postgres__orders
+    description: ""
+    columns:
+      - name: order_id
+      - name: user_id
+      - name: promo_id
+      - name: address_id
+      - name: created_at
+      - name: order_cost
+      - name: shipping_cost
+      - name: order_total
+      - name: tracking_id
+      - name: shipping_service
+      - name: estimated_delivery_at
+      - name: delivered_at
+      - name: status
+
+  - name: stg_postgres__products
+    description: ""
+    columns:
+      - name: product_id
+        description: Primary key of the products table
+        tests:
+          - unique
+          - not_null
+      - name: name
+      - name: price
+      - name: inventory    
+
+  - name: stg_postgres__promos
+    description: ""
+    columns:
+      - name: promo_id
+        description: Primary key of the promos table
+      - name: discount
+      - name: status
+
+  - name: stg_postgres__users
+    description: ""
+    columns:
+      - name: user_id
+        description: Primary key of the users table
+      - name: first_name
+      - name: last_name
+      - name: email
+      - name: phone_number
+      - name: created_at
+      - name: updated_at
+      - name: address_id
