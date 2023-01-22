@@ -1,29 +1,28 @@
 with source as (
 
-    select *
-    from {{ source('postgres', 'orders') }}
+    select * from {{ source('postgres', 'orders') }}
 
 ),
 
-final as (
+renamed_recast as (
 
     select
-        order_id,
-        user_id,
+        order_id as order_guid,
+        user_id as user_guid,
         promo_id,
-        address_id,
-        created_at,
+        address_id as address_guid,
+        created_at::timestampntz as created_at_utc,
         order_cost,
         shipping_cost,
         order_total,
-        tracking_id,
+        tracking_id as tracking_guid,
         shipping_service,
-        estimated_delivery_at,
-        delivered_at,
+        estimated_delivery_at::timestampntz as estimated_delivery_at_utc,
+        delivered_at::timestampntz as delivered_at_utc,
         status
 
     from source
 
 )
 
-select * from final
+select * from renamed_recast

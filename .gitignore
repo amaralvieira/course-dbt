@@ -131,5 +131,11 @@ dmypy.json
 # VS Code Settings
 *.code-workspace
 
+# Conda stuff
+environment.yml
+
+# Linter
+.sqlfluff*
+
 # Analyses
 /greenery/Analyses/*.sql

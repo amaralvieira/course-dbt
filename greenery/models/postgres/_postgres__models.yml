@@ -4,7 +4,7 @@ models:
   - name: stg_postgres__addresses
     description: Customer billing and shipping addresses
     columns:
-      - name: address_id
+      - name: address_guid
         description: Primary key of the addresses table
         tests:
           - unique
@@ -17,55 +17,61 @@ models:
   - name: stg_postgres__events
     description: ""
     columns:
-      - name: event_id
+      - name: event_guid
         description: Primary key of the events table
         tests:
           - unique
           - not_null
-      - name: session_id
-      - name: user_id
+      - name: session_guid
+      - name: user_guid
         description: Foreign key to the users table
       - name: page_url
-      - name: created_at
+      - name: created_at_utc
       - name: event_type
-      - name: order_id
+      - name: order_guid
         description: Foreign key to the orders table
-      - name: product_id
+      - name: product_guid
         description: Foreign key to the products table
 
   - name: stg_postgres__order_items
     description: ""
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - order_guid
+            - product_guid
     columns:
-      - name: order_id
+      - name: order_guid
         description: Primary key of the events table
         tests:
-          - unique
           - not_null
-      - name: product_id
+      - name: product_guid
         description: Foreign key to the products table
+        tests:
+          - not_null
       - name: quantity
 
   - name: stg_postgres__orders
     description: ""
     columns:
-      - name: order_id
-      - name: user_id
-      - name: promo_id
-      - name: address_id
-      - name: created_at
+      - name: order_guid
+      - name: user_guid
+      - name: promo_guid
+      - name: address_guid
+      - name: created_at_utc
       - name: order_cost
       - name: shipping_cost
       - name: order_total
-      - name: tracking_id
+      - name: tracking_guid
       - name: shipping_service
-      - name: estimated_delivery_at
-      - name: delivered_at
+      - name: estimated_delivery_at_utc
+      - name: delivered_at_utc
       - name: status
 
   - name: stg_postgres__products
     description: ""
     columns:
-      - name: product_id
+      - name: product_guid
         description: Primary key of the products table
         tests:
           - unique
@@ -77,7 +83,7 @@ models:
   - name: stg_postgres__promos
     description: ""
     columns:
-      - name: promo_id
+      - name: promo_guid
         description: Primary key of the promos table
       - name: discount
       - name: status
@@ -85,12 +91,12 @@ models:
   - name: stg_postgres__users
     description: ""
     columns:
-      - name: user_id
+      - name: user_guid
         description: Primary key of the users table
       - name: first_name
       - name: last_name
       - name: email
       - name: phone_number
-      - name: created_at
-      - name: updated_at
-      - name: address_id
+      - name: created_at_utc
+      - name: updated_at_utc
+      - name: address_guid

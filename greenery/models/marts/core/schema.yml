@@ -1,0 +1,71 @@
+version: 2
+
+models:
+  - name: dim_addresses
+    description: ""
+    columns:
+      - name: address_guid
+        description: ""
+
+      - name: zipcode
+        description: ""
+
+      - name: state
+        description: ""
+
+  - name: dim_products
+    description: ""
+    columns:
+      - name: product_guid
+        description: ""
+
+      - name: name
+        description: ""
+
+  - name: dim_users
+    description: ""
+    columns:
+      - name: user_guid
+        description: ""
+
+      - name: zipcode
+        description: ""
+
+      - name: state
+        description: ""
+
+  - name: fct_orders
+    description: ""
+    columns:
+      - name: order_guid
+        description: ""
+
+      - name: user_guid
+        description: ""
+
+      - name: user__zipcode
+        description: ""
+
+      - name: user__state
+        description: ""
+
+      - name: address_guid
+        description: ""
+
+      - name: address__zip_code
+        description: ""
+
+      - name: address__state
+        description: ""
+
+      - name: created_at_utc
+        description: ""
+
+      - name: order_cost
+        description: ""
+
+      - name: shipping_cost
+        description: ""
+
+      - name: order_total
+        description: ""

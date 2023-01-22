@@ -1,14 +1,13 @@
 with source as (
 
-    select *
-    from {{ source('postgres', 'promos') }}
+    select * from {{ source('postgres', 'promos') }}
 
 ),
 
-final as (
+renamed as (
 
     select
-        promo_id,
+        lower(promo_id) as promo_type, {# -- noqa: L034 #}
         discount,
         status
 
@@ -16,4 +15,4 @@ final as (
 
 )
 
-select * from final
+select * from renamed

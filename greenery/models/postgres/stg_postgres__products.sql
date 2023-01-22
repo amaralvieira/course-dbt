@@ -1,14 +1,13 @@
 with source as (
 
-    select *
-    from {{ source('postgres', 'products') }}
+    select * from {{ source('postgres', 'products') }}
 
 ),
 
-final as (
+renamed as (
 
     select
-        product_id,
+        product_id as product_guid,
         name,
         price,
         inventory
@@ -17,4 +16,4 @@ final as (
 
 )
 
-select * from final
+select * from renamed

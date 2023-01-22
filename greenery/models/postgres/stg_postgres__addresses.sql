@@ -1,19 +1,19 @@
 with source as (
 
-    select *
-    from {{ source('postgres', 'addresses') }}
+    select * from {{ source('postgres', 'addresses') }}
 
 ),
 
-final as (
+renamed as (
 
-    select address_id,
-           address,
-           zipcode,
-           state,
-           country
-      from source
+    select
+        address_id as address_guid,
+        address,
+        zipcode,
+        state,
+        country
+    from source
 
 )
 
-select * from final
+select * from renamed

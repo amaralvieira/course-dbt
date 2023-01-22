@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: fct_page_views
+    description: ""
+    columns:
+      - name: session_guid
+        description: ""
+
+      - name: product_guid
+        description: ""
+
+      - name: session_duration_minutes
+        description: ""
+
+      - name: checkout
+        description: ""
+
+      - name: page_view
+        description: ""
+
+      - name: add_to_cart
+        description: ""
+
+  - name: int_session_stats
+    description: ""
+    columns:
+      - name: session_guid
+        description: ""
+
+      - name: session_start_at_utc
+        description: ""
+
+      - name: session_end_at_utc
+        description: ""
+
+      - name: session_duration_minutes
+        description: ""
+
+      - name: checkout
+        description: ""
