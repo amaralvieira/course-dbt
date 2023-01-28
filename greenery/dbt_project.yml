@@ -23,6 +23,9 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
 
+# Variables
+vars:
+  'dbt_date:time_zone': 'America/Los_Angeles'
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
@@ -35,3 +38,12 @@ models:
     # Config indicated by + and applies to all files under models/example/
     postgres:
       +materialized: view
+    marts:
+      +materialized: table
+      +grants:
+        select: ['reporting']
+      intermediate:
+        +query_tag: intermediate
+        +materialized: table
+        +grants:
+          select: []

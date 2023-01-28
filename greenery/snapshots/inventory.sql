@@ -17,7 +17,7 @@ with products as (
 )
 
     select
-        product_guid,
+        product_id as product_guid,
         inventory
     from products
 

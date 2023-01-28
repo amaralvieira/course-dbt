@@ -3,39 +3,25 @@ version: 2
 models:
   - name: fct_page_views
     description: ""
+    tests:
+      - dbt_expectations.expect_column_pair_values_A_to_be_greater_than_B:
+          column_A: add_to_cart
+          column_B: checkout
+          or_equal: true
     columns:
       - name: session_guid
         description: ""
-
       - name: product_guid
         description: ""
-
       - name: session_duration_minutes
         description: ""
-
-      - name: checkout
-        description: ""
-
       - name: page_view
         description: ""
-
       - name: add_to_cart
         description: ""
-
-  - name: int_session_stats
-    description: ""
-    columns:
-      - name: session_guid
-        description: ""
-
-      - name: session_start_at_utc
-        description: ""
-
-      - name: session_end_at_utc
-        description: ""
-
-      - name: session_duration_minutes
-        description: ""
-
       - name: checkout
-        description: ""
+        description: "{{ doc('checkout')}}"
+        tests:
+        - dbt_expectations.expect_column_values_to_be_in_set:
+            value_set: [0, 1]
+            quote_values: false

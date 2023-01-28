@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: int_session_stats
+    description: ""
+    columns:
+      - name: session_guid
+        description: ""
+      - name: session_start_at_utc
+        description: ""
+      - name: session_end_at_utc
+        description: ""
+      - name: session_duration_minutes
+        description: ""
+      - name: checkout
+        description: ""
+  - name: int_user_orders
+    description: ""
+    columns:
+      - name: user_guid
+        description: ""
+      - name: first_order_date
+        description: ""
+      - name: last_order_date
+        description: ""
+      - name: orders_count
+        description: ""
+      - name: is_user_repeat
+        description: ""
+      - name: orders_total_amount
+        description: ""
+      - name: orders_avg_amount
+        description: ""

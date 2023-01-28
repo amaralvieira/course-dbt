@@ -6,57 +6,23 @@ models:
     columns:
       - name: order_guid
         description: ""
-
       - name: user_guid
         description: ""
-
       - name: user__zipcode
         description: ""
-
       - name: user__state
         description: ""
-
       - name: address_guid
         description: ""
-
       - name: address__zip_code
         description: ""
-
       - name: address__state
         description: ""
-
       - name: user__is_user_repeat
         description: ""
-
       - name: user__first_order_date
         description: ""
-
       - name: last_order_date
         description: ""
-
       - name: user__orders_count
-        description: ""
-        
-  - name: int_user_orders
-    description: ""
-    columns:
-      - name: user_guid
-        description: ""
-
-      - name: first_order_date
-        description: ""
-
-      - name: last_order_date
-        description: ""
-
-      - name: orders_count
-        description: ""
-
-      - name: is_user_repeat
-        description: ""
-
-      - name: orders_total_amount
-        description: ""
-
-      - name: orders_avg_amount
         description: ""

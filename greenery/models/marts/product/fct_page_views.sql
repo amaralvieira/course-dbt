@@ -1,44 +1,54 @@
-{{
-  config( materialized = 'table' )
-}}
+{% set event_types = ["page_view", "add_to_cart"] %}
 
 with events as (
 
     select *
     from {{ ref("stg_postgres__events") }}
     where event_type != 'package_shipped'
+      and product_guid is not null
 
 ),
 
 session_stats as (
-    
+
     select * from {{ ref("int_session_stats") }}
 
 ),
 
-final as (
+events_pivot as (
 
     select
-        events.session_guid,
-        events.product_guid,
-        session_stats.session_duration_minutes,
-        session_stats.checkout,
+        session_guid,
+        product_guid,
+        user_guid,
+        {% for event_type in event_types %}
         sum(
-            case events.event_type when 'page_view' then 1 else 0 end
-        ) as page_view,
-        sum(
-            case events.event_type when 'add_to_cart' then 1 else 0 end
-        ) as add_to_cart
+            case when event_type = '{{ event_type }}'
+                    then 1
+                 else 0
+             end
+            ) as {{ event_type }}{{ "," if not loop.last else "" }}
+        {% endfor %}
+   from events
+   group by session_guid,
+            product_guid,
+            user_guid
+),
 
-    from events
-    inner join session_stats
-            on events.session_guid = session_stats.session_guid 
-    group by events.session_guid,
-             events.product_guid,
-             session_stats.session_duration_minutes,
-             session_stats.checkout
+final as (
+    select
+        events_pivot.session_guid,
+        events_pivot.product_guid,
+        events_pivot.user_guid,
+        session_stats.session_duration_minutes,
+        {% for event_type in event_types %}
+        {{ event_type }},
+        {% endfor %}
+        least(session_stats.checkout, events_pivot.add_to_cart) as checkout
+   from events_pivot
+   inner join session_stats
+           on events_pivot.session_guid = session_stats.session_guid
+
 )
 
 select * from final
-where page_view > 1
-      or add_to_cart > 1

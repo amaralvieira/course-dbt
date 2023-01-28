@@ -1,7 +1,3 @@
-{{
-  config( materialized = 'table' )
-}}
-
 with addresses as (
 
     select * from {{ ref('stg_postgres__addresses') }}
