@@ -1,0 +1,22 @@
+version: 2
+
+exposures:
+
+  - name: amaralv_greenery
+    label: Product funnel
+    type: dashboard
+    maturity: medium
+    url: 
+    description: >
+         Product funnel is defined with 3 levels for our dataset:
+         - Sessions with any event of type page_view
+         - Sessions with any event of type add_to_cart
+         - Sessions with any event of type checkout
+
+    depends_on:
+      - ref('fct_page_views')
+      - ref('dim_products')
+
+    owner:
+      name: Ricardo Amaral Vieira
+      email: amaralvieira@greenery.pt

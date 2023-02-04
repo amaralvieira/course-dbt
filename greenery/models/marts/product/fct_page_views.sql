@@ -40,10 +40,11 @@ final as (
         events_pivot.session_guid,
         events_pivot.product_guid,
         events_pivot.user_guid,
+        trunc(session_stats.session_start_at_utc, 'DD') as session_date,
         session_stats.session_duration_minutes,
-        {% for event_type in event_types %}
-        {{ event_type }},
-        {% endfor %}
+        {%- for event_type in event_types %}
+        events_pivot.{{ event_type }},
+        {%- endfor %}
         least(session_stats.checkout, events_pivot.add_to_cart) as checkout
    from events_pivot
    inner join session_stats
